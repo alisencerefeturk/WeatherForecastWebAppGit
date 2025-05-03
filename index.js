@@ -20,27 +20,54 @@ app.listen(PORT, () => {
 
 app.post('/api/weather', async(req, res) =>{
     const city = req.body.city;
-    const geoUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${process.env.OPENWEATHER_API_KEY}`
+    const geoURL = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${process.env.OPENWEATHER_API_KEY}`
     try {
-        const response = await axios.get(geoUrl);
+        const response = await axios.get(geoURL);
         const geoData = response.data;
         const lat = geoData[0].lat;
         const lon = geoData[0].lon;
-        console.log("Geo API'den gelen veri:", geoData);
+        // console.log("Geo API'den gelen veri:", geoData); //Geo API verisi kontrolü için
 
-        const weatherUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&units=metric&appid=${process.env.OPENWEATHER_API_KEY}`
-        const weatherResponse = await axios.get(weatherUrl);
+        const weatherURL = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&units=metric&appid=${process.env.OPENWEATHER_API_KEY}`
+        const weatherResponse = await axios.get(weatherURL);
         const weatherData = weatherResponse.data
-        console.log("Weather API'den gelen veri", weatherData);
+        const prompt = `
+        City:${city}
+        Temperature:${weatherData.current.temp}
+        Humidity:${weatherData.current.humidity}
+        Wind speed:${weatherData.current.wind_speed}
+        Weather:${weatherData.current.weather[0].main}
+        Vereceğin çıktı tamamen türkçe olsun.
+        `
+        // console.log(`Şehir bilgisi vs:${prompt}`); // Tüm bilgileri ve apileri kontrol için
+
+        const headers = {
+            "Content-Type": "application/json",
+        };
+        
+        const geminiBody = {
+            contents: [
+                {
+                    parts: [
+                        { text: prompt }
+                    ]
+                }
+            ]
+        };
+        const geminiURL = `https://generativelanguage.googleapis.com/v1beta/tunedModels/weatherdataset-myl8s7hxfuz6:generateContent?key=${process.env.GEMINI_API_KEY}`;        
+        const geminiResponse = await axios.post(geminiURL, geminiBody, { headers });
+        const aiText = geminiResponse.data?.candidates?.[0]?.content?.parts?.[0]?.text || "Yorum alınamadı.";
+        
         res.json({
-            message: "Veriler alındı:", 
             geo: geoData,
-            weather: weatherData
-        }); 
- 
+            weather: weatherData,
+            aiComment: aiText
+          });
+        console.log(JSON.stringify(geminiResponse.data, null, 2));
+          
+
     } catch(error) {
         console.error("Hata:", error);
         res.status(500).json({ error: "Hata alındı" });
     }
-
 })
