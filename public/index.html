@@ -1,40 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Weather Forecast Web App">
-    <meta name="author" content="Your Name">
-    <title>Weather Forecast Web App</title>
-    <link rel="stylesheet" href="styles.css">
-    <script type="module" src="scripts.js" defer></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hava Durumu & Yapay Zeka Yorumu</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
 </head>
 <body>
-    <nav style="border-style: solid;">
-        <header>
-            <h1>Weather Forecast Web App</h1>
-        </header>
-    </nav>
-    <main>
-        <section id="search">
-            <h2>Search for a City</h2>
-            <form id="weather-form">
-                <input type="text" id="city" name="city" placeholder="Enter city name" required>
-                <button type="submit" id="getWeatherBtn">Get Weather</button>
-            </form>
-        </section>
-        <section>
-            <p id="weatherResult"> </p>
-        </section>
-        <section id="forecast">
-            <h2>Weather Forecast</h2>
-            <div id="weather-ai">
-                <p id="weatherAiResult"></p>
-            </div>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; Ali Sencer Efetürk</p>
-    </footer>
+  <div class="container">
+    <h1>Hava Durumu Uygulaması</h1>
+    <form id="weather-form">
+      <input type="text" id="city" name="city" placeholder="Şehir girin..." required />
+      <button type="submit" id="getWeatherBtn">Tahmin Al</button>
+    </form>
+
+    <!-- <div id="weatherResult" class="card"></div> -->
+
+    <div id="weather-ai" class="card">
+      <h2>Yapay Zeka Yorumu</h2>
+      <p id="weatherAiResult"></p>
+    </div>
+  </div>
+
+  <script type="module" src="scripts.js"></script>
 </body>
 </html>
