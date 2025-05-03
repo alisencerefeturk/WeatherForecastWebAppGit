@@ -31,15 +31,16 @@ app.post('/api/weather', async(req, res) =>{
         const weatherURL = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&units=metric&appid=${process.env.OPENWEATHER_API_KEY}`
         const weatherResponse = await axios.get(weatherURL);
         const weatherData = weatherResponse.data
-        const prompt = `
-        City:${city}
+        const prompt = `City:${city}
         Temperature:${weatherData.current.temp}
         Humidity:${weatherData.current.humidity}
         Wind speed:${weatherData.current.wind_speed}
         Weather:${weatherData.current.weather[0].main}
-        Vereceğin çıktı tamamen türkçe olsun.
+        Dil tamamen türkçe olsun.
         `
-        // console.log(`Şehir bilgisi vs:${prompt}`); // Tüm bilgileri ve apileri kontrol için
+        const weatherIconCode = `${weatherData.current.weather[0].icon}`;
+        const weatherIconURL = `https://openweathermap.org/img/wn/${weatherIconCode}@2x.png`;
+        // console.log(`Şehir bilgisi vs:${weatherData}`); // Tüm bilgileri ve apileri kontrol için
 
         const headers = {
             "Content-Type": "application/json",
@@ -54,16 +55,17 @@ app.post('/api/weather', async(req, res) =>{
                 }
             ]
         };
-        const geminiURL = `https://generativelanguage.googleapis.com/v1beta/tunedModels/weatherdataset-myl8s7hxfuz6:generateContent?key=${process.env.GEMINI_API_KEY}`;        
+        const geminiURL = `https://generativelanguage.googleapis.com/v1beta/tunedModels/geminiweatherdataset1000prompt-xci8sfrzf:generateContent?key=${process.env.GEMINI_API_KEY}`;        
         const geminiResponse = await axios.post(geminiURL, geminiBody, { headers });
         const aiText = geminiResponse.data?.candidates?.[0]?.content?.parts?.[0]?.text || "Yorum alınamadı.";
         
         res.json({
             geo: geoData,
             weather: weatherData,
-            aiComment: aiText
+            aiComment: aiText,
+            weatherIcon: weatherIconURL
           });
-        console.log(JSON.stringify(geminiResponse.data, null, 2));
+        // console.log(JSON.stringify(geminiResponse.data, null, 2));
           
 
     } catch(error) {

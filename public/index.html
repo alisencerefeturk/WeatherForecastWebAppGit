@@ -12,14 +12,19 @@
     <h1>Hava Durumu Uygulaması</h1>
     <form id="weather-form">
       <input type="text" id="city" name="city" placeholder="Şehir girin..." required />
-      <button type="submit" id="getWeatherBtn">Tahmin Al</button>
+      <button type="submit" id="getWeatherBtn">
+        <span class="button-text">Tahmin Al</span>
+        <span class="spinner"></span>
+      </button>
     </form>
 
-    <!-- <div id="weatherResult" class="card"></div> -->
-
     <div id="weather-ai" class="card">
-      <h2>Yapay Zeka Yorumu</h2>
-      <p id="weatherAiResult"></p>
+        <h2>Yapay Zeka Yorumu</h2>
+        <p id="weatherAiResult"></p>
+      </div>
+
+    <div id="weatherIconDiv" class="card">
+        <img id="weatherIcon" src="" style="display: none;"/>
     </div>
   </div>
 
