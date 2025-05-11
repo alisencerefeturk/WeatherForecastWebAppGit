@@ -55,7 +55,7 @@ app.post('/api/weather', async(req, res) =>{
                 }
             ]
         };
-        const geminiURL = `https://generativelanguage.googleapis.com/v1beta/tunedModels/geminiweatherdataset1000prompt-xci8sfrzf:generateContent?key=${process.env.GEMINI_API_KEY}`;        
+        const geminiURL = `https://generativelanguage.googleapis.com/v1beta/tunedModels/geminiweatherdataset4999tr-9uinx7zoq788:generateContent?key=${process.env.GEMINI_API_KEY}`;
         const geminiResponse = await axios.post(geminiURL, geminiBody, { headers });
         const aiText = geminiResponse.data?.candidates?.[0]?.content?.parts?.[0]?.text || "Yorum alınamadı.";
         
