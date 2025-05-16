@@ -103,14 +103,14 @@
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
   }
   
-  #weatherIconDiv {
+  #weather-icon-div {
     opacity: 0;
     transform: translateY(10px);
     transition: opacity 0.4s ease, transform 0.4s ease;
     text-align: center;
   }
   
-  #weatherIconDiv.visible {
+  #weather-icon-div.visible {
     opacity: 1;
     transform: translateY(0);
   }
@@ -135,3 +135,28 @@
     display: block;
   }
   
+  .auth-buttons {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.auth-buttons a {
+  padding: 8px 12px;
+  background-color: #3182ce;
+  color: white;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.auth-buttons a:hover {
+  background-color: #2b6cb0;
+}
+
+#favorite-form {
+  margin-top: 1rem;
+  background-color: #fff6f6;
+}

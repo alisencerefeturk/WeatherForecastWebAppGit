@@ -8,6 +8,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
 </head>
 <body>
+  <header>
+    <div class="auth-buttons">
+      <a href="/register.html">Kayıt Ol</a>
+      <a href="/login.html">Giriş Yap</a>
+    </div>
+  </header>
+
   <div class="container">
     <h1>Hava Durumu Uygulaması</h1>
     <form id="weather-form">
@@ -16,15 +23,17 @@
         <span class="button-text">Tahmin Al</span>
         <span class="spinner"></span>
       </button>
+      <button id="add-fav-button" type="submit" style="display: none;">Favori Yap</button>
     </form>
+    <p id="add-fav-confirm" class="card" style="display: none;"></p>
 
     <div id="weather-ai" class="card">
-        <h2>Yapay Zeka Yorumu</h2>
-        <p id="weatherAiResult"></p>
-      </div>
+      <h2>Yapay Zeka Yorumu</h2>
+      <p id="weatherAiResult"></p>
+    </div>
 
-    <div id="weatherIconDiv" class="card">
-        <img id="weatherIcon" src="" style="display: none;"/>
+    <div id="weather-icon-div" class="card" style="display: none;">
+      <img id="weatherIcon" src=""/>
     </div>
   </div>
 
